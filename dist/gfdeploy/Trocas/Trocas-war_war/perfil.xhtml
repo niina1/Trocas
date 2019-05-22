@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Login"/></h1>  
+                <p>Titulo</p>
+                <h:inputText id ="titulo" value="#{usuarioMBean.titulo}" size="30" maxlength="30" /> 
+                 <p>Descricao</p>
+                <h:inputText id ="descricao" value="#{usuarioMBean.descricao}" /> 
+                
+                <p:commandButton value="Cadastrar Item" icon="ui-icon-star" action="#{usuarioMBean.criarItem()}" ajax="false">  
+                </p:commandButton>  
+            </h:form>
+
+                      <h2><h:outputText value="Lista de Todos Itens"/></h2>
+                      <p:dataTable var="item" value="#{itemMBean.listaItem}">
+                   
+                   <p:column headerText="titulo">
+                      <h:outputText id ="titulo" value="#{item.titulo}" /> 
+                   </p:column>
+                    <p:column headerText="descricao">
+                      <h:outputText id ="descricao" value="#{item.descricao}" /> 
+                    </p:column>
+                </p:dataTable>
+<div >
+                <a href="faces/listaitens.xhtml">
+                    <button type="button">listar itens</button>
+                </a>
+            </div>   
+                     
+         </f:view>
+    </h:body>
+    
+</html>
+

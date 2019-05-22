@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Sistema de Trocas</title>
+    </h:head>
+    <h:body>
+        
+        <f:view>
+            <h:form>
+                
+                <h1><h:outputText value="Cadastre-se"/></h1>                  
+                <p>Nome</p>
+                <h:inputText id ="nomeUsuario" value="#{usuarioMBean.nomeUsuario}" size="40" maxlength="40" /> 
+                <p>E-mail</p>
+                <h:inputText id ="email" value="#{usuarioMBean.email}" size="30" maxlength="30" /> 
+                <p>Cidade</p>
+                <h:inputText id ="cidade" value="#{usuarioMBean.cidade}" size="30" maxlength="30" />
+                <p>UF</p>
+                <h:inputText id ="uf" value="#{usuarioMBean.uf}" size="2" maxlength="2" /> 
+                <p>Telefone</p>
+                <h:inputText id ="telefone" value="#{usuarioMBean.telefone}" size="12" maxlength="12" /> 
+                <p>Senha</p>
+                <h:inputText id ="senha" value="#{usuarioMBean.senha}" /> 
+                <p:commandButton value="Enviar" icon="ui-icon-star" action="#{usuarioMBean.criarUsuario()}" ajax="false">
+                </p:commandButton>             
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+

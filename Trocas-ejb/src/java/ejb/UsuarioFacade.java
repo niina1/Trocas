@@ -1,0 +1,63 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ejb;
+
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ *
+ * @author Carol
+ */
+@Stateless
+public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFacadeLocal {
+    @PersistenceContext(unitName = "Trocas-ejbPU")
+    private EntityManager em;
+    public Usuario  usuario;
+
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+
+    public UsuarioFacade() {
+        super(Usuario.class);
+    }
+
+    @Override
+    public Usuario newUsuario() {
+        List<Usuario> usuarios = super.findAll();
+        int tamanho;
+        tamanho = usuarios.get(usuarios.size() - 1).getIdUsuario() + 1;
+        usuario = new Usuario(tamanho );
+        return  usuario;
+    }
+        @Override
+     public String getNomeUsuario() {
+        return this.usuario.getNomeUsuario();
+    }
+
+    @Override
+    public void setNomeUsuario(String nomeUsuario) {
+        this.usuario.setNomeUsuario(nomeUsuario);
+    }
+
+    @Override
+    public String getEmail() {
+        return this.usuario.getEmail();
+    }
+
+    @Override
+    public void setEmail(String email) {
+        this.usuario.setEmail(email);
+    }
+  
+    
+    
+    
+}
