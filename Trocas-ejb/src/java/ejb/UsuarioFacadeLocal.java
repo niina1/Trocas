@@ -38,5 +38,7 @@ public interface UsuarioFacadeLocal {
     void setNomeUsuario(String nomeUsuario);
     
     void setEmail(String email);
+    
+    void enviarEmail(Usuario usuario, Item item, String msg);
            
 }

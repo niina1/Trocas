@@ -56,6 +56,17 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
     public void setEmail(String email) {
         this.usuario.setEmail(email);
     }
+
+    @Override
+    public void enviarEmail(Usuario usuario, Item item, String msg) {
+        ejb.SendMail email = new ejb.SendMail();
+         try {
+                email.sendMail("sistemaTrocasDsoo2@gmail.com", "carolina_alves.s@hotmail.com", item.getTitulo() , msg);
+            } catch (Exception e) {
+               e.printStackTrace();
+            }
+    
+    }
   
     
     

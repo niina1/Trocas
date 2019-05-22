@@ -21,14 +21,14 @@
             </h:form>
 
                       <h2><h:outputText value="Lista de Todos Itens"/></h2>
-                      <p:dataTable var="item" value="#{itemMBean.listaItem}">
-                   
-                   <p:column headerText="titulo">
+                      <p:dataTable id="tabelaItem" var="item" value="#{itemMBean.listaItem}">
+                   <p:column headerText="Itens">
                       <h:outputText id ="titulo" value="#{item.titulo}" /> 
-                   </p:column>
-                    <p:column headerText="descricao">
-                      <h:outputText id ="descricao" value="#{item.descricao}" /> 
-                    </p:column>
+                      <p><h:outputText id ="descricao" value="#{item.descricao}" /> </p>
+                      <p:commandButton process="@this tabelaItem"  action="#{usuarioMBean.setItemSelecionado(item)}" value="visualizar">                     
+                      </p:commandButton>
+                          </p:column>
+                         
                 </p:dataTable>
 <div >
                 <a href="faces/listaitens.xhtml">

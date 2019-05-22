@@ -40,8 +40,10 @@ public class UsuarioMBean {
     Item item;
     String titulo;
     String descricao;
+    String mensagem;
     @Inject
     ItemMBean itemMBean = new ItemMBean();
+    Item itemSelecionado;
     
 
         /**
@@ -211,6 +213,38 @@ public class UsuarioMBean {
         titulo = "";
         descricao = "";
     }
+  
+  public void enviarEmail(){
+      getUsuario();
+      getItemSelecionado();
+      String msg = this.usuario.getNomeUsuario() + " - " + this.usuario.getEmail() + 
+              " enviou uma mensagem sobre o item " + this.itemSelecionado.getTitulo() + ": " +  this.mensagem;
+      usuarioFacade.enviarEmail(usuario, itemSelecionado, msg);
+  }
+  
+  public String setItemSelecionado(Item item){
+      FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+        session.setAttribute("item", item);
+        this.itemSelecionado = (Item) session.getAttribute("item");      
+        return "visualizaritem";
+  }
+  
+  public Item getItemSelecionado(){
+      FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+        this.itemSelecionado = (Item) session.getAttribute("item"); 
+        return this.itemSelecionado;
+  }
 
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
+    }
+
+    
     
 }
