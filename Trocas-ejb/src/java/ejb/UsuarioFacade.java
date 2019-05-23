@@ -19,6 +19,8 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
     @PersistenceContext(unitName = "Trocas-ejbPU")
     private EntityManager em;
     public Usuario  usuario;
+    ChatFacade chatFacade;
+    MensagemFacade mensagemFacade; 
 
     @Override
     protected EntityManager getEntityManager() {
@@ -67,6 +69,38 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
             }
     
     }
+
+    @Override
+    public void enviarMensagem(Usuario usuario, Item item, String msg) {   
+        for(Chat chat: chatFacade.findAll()){
+            if(chat.getIdItem().equals(item)){
+                if(chat.getIdChat().equals(chat)){
+                        Mensagem mensagem = mensagemFacade.newMensagem();
+                        mensagem.setTexto(msg);
+                        mensagem.setIdChat(chat);
+                        mensagemFacade.create(mensagem);
+                        chatFacade.edit(chat);
+                    }
+                }
+            else{
+                chat = chatFacade.newChat();
+                chat.setIdItem(item);
+                chat.setIdUsuario(usuario);
+                Mensagem mensagem = mensagemFacade.newMensagem();
+                mensagem.setTexto(msg);
+                mensagem.setIdChat(chat);   
+                chatFacade.create(chat);
+                mensagemFacade.create(mensagem);
+            }
+        }   
+ 
+            
+
+    }
+    
+    
+    
+    
   
     
     

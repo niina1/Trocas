@@ -4,8 +4,12 @@
  * and open the template in the editor.
  */
 import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
+import ejb.Chat;
+import ejb.ChatFacadeLocal;
 import ejb.Item;
 import ejb.ItemFacadeLocal;
+import ejb.Mensagem;
+import ejb.MensagemFacadeLocal;
 import ejb.UsuarioFacadeLocal;
 import java.util.List;
 import javax.ejb.EJB;
@@ -44,7 +48,10 @@ public class UsuarioMBean {
     @Inject
     ItemMBean itemMBean = new ItemMBean();
     Item itemSelecionado;
-    
+    @EJB 
+    private ChatFacadeLocal chatFacade;
+    @EJB
+    private MensagemFacadeLocal mensagemFacade;
 
         /**
      * Creates a new instance of UsuarioMBean
@@ -97,7 +104,7 @@ public class UsuarioMBean {
     }
     
     public String criarUsuario(){
-        usuario = getUsuario();
+        usuario = usuarioFacade.newUsuario();
         usuario.setEmail(email); 
         usuario.setCidade(cidade);
         usuario.setNomeUsuario(nomeUsuario);
@@ -222,11 +229,39 @@ public class UsuarioMBean {
       usuarioFacade.enviarEmail(usuario, itemSelecionado, msg);
   }
   
+   public void enviarMensagem(){
+      getUsuario();
+      getItemSelecionado();
+      this.mensagem = usuario.getNomeUsuario() + ": " + mensagem;
+      for(Chat chat: chatFacade.findAll()){
+            if(chat.getIdItem().equals(itemSelecionado)){
+                if(chat.getIdUsuario().equals(usuario)){
+                        Mensagem msg = mensagemFacade.newMensagem();
+                        msg.setTexto(mensagem);
+                        msg.setIdChat(chat);
+                        mensagemFacade.create(msg);
+                        chatFacade.edit(chat);
+                    }
+                }
+      }
+      
+                Chat chat = chatFacade.newChat();
+                chat.setIdItem(itemSelecionado);
+                chat.setIdUsuario(usuario);
+                Mensagem msg = mensagemFacade.newMensagem();
+                msg.setTexto(mensagem);
+                msg.setIdChat(chat);   
+                this.chatFacade.create(chat);
+                this.mensagemFacade.create(msg);
+            
+   }
+  
   public String setItemSelecionado(Item item){
       FacesContext context = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
         session.setAttribute("item", item);
-        this.itemSelecionado = (Item) session.getAttribute("item");      
+        this.itemSelecionado = (Item) session.getAttribute("item"); 
+        
         return "visualizaritem";
   }
   
@@ -245,6 +280,15 @@ public class UsuarioMBean {
         this.mensagem = mensagem;
     }
 
+    public List<Mensagem> getMensagemItem(){
+        getUsuario();
+        getItemSelecionado();
+        Chat chat = chatFacade.getChatItemUsuario(itemSelecionado, usuario);
+        List<Mensagem> msgs = null;
+        if(chat != null)
+            msgs = mensagemFacade.getMenssagensChat(chat);
+        return msgs;
+    }
     
     
 }

@@ -38,6 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByTelefone", query = "SELECT u FROM Usuario u WHERE u.telefone = :telefone"),
     @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha")})
 public class Usuario implements Serializable {
+    @OneToMany(mappedBy = "idUsuario")
+    private Collection<Chat> chatCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -165,6 +167,15 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "ejb.Usuario[ idUsuario=" + idUsuario + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Chat> getChatCollection() {
+        return chatCollection;
+    }
+
+    public void setChatCollection(Collection<Chat> chatCollection) {
+        this.chatCollection = chatCollection;
     }
     
 }

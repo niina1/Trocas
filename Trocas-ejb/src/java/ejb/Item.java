@@ -6,6 +6,7 @@
 package ejb;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,10 +15,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,6 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Item.findByDescricao", query = "SELECT i FROM Item i WHERE i.descricao = :descricao"),
     @NamedQuery(name = "Item.findByIdItem", query = "SELECT i FROM Item i WHERE i.idItem = :idItem")})
 public class Item implements Serializable {
+    @OneToMany(mappedBy = "idItem")
+    private Collection<Chat> chatCollection;
     private static final long serialVersionUID = 1L;
     @Size(max = 20)
     @Column(name = "TITULO")
@@ -110,6 +115,15 @@ public class Item implements Serializable {
     @Override
     public String toString() {
         return "ejb.Item[ idItem=" + idItem + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Chat> getChatCollection() {
+        return chatCollection;
+    }
+
+    public void setChatCollection(Collection<Chat> chatCollection) {
+        this.chatCollection = chatCollection;
     }
     
 }

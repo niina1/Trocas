@@ -40,5 +40,7 @@ public interface UsuarioFacadeLocal {
     void setEmail(String email);
     
     void enviarEmail(Usuario usuario, Item item, String msg);
+    
+    void enviarMensagem(Usuario usuario, Item item, String msg);
            
 }
