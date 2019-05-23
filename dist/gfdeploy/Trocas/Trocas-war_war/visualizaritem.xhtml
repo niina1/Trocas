@@ -10,19 +10,22 @@
     <h:body>
         <f:view>
             <h:form>
-                <h1><h:outputText value="Item Selecinado"/></h1>  
-                <p><h:outputText id ="titulo" value="#{usuarioMBean.itemSelecionado.titulo}" /> </p>
+                <h1><h:outputText value="Item Selecinado:"/></h1>  
+                <h2><p><h:outputText id ="titulo" value="#{usuarioMBean.itemSelecionado.titulo}" /> </p></h2>
                 <p><h:outputText id ="descricao" value="#{usuarioMBean.itemSelecionado.descricao}" /></p> 
                 <p><h:inputText id ="mensagem" value="#{usuarioMBean.mensagem}" /> </p>       
                 <p:commandButton value="Enviar Msg" icon="ui-icon-star" action="#{usuarioMBean.enviarMensagem()}" ajax="false">  
                 </p:commandButton>  
-                
+                <br></br>
                 <p:dataTable id="tabelaChat" var="msg" value="#{usuarioMBean.mensagemItem}">
                    <p:column headerText="Mensagem">
                        <h:outputText id ="titulo" value="#{msg.texto}" /> 
                        </p:column>
                 </p:dataTable>
             </h:form>
+              <a href="faces/perfil.xhtml">
+                    <button type="button">Voltar</button>
+                </a>
  
          </f:view>
     </h:body>

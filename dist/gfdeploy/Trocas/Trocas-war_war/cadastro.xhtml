@@ -26,7 +26,11 @@
                 <p>Senha</p>
                 <h:inputText id ="senha" value="#{usuarioMBean.senha}" /> 
                 <p:commandButton value="Enviar" icon="ui-icon-star" action="#{usuarioMBean.criarUsuario()}" ajax="false">
-                </p:commandButton>             
+                </p:commandButton>   <br></br>
+                <h:messages></h:messages>
+                 <a href="faces/index.xhtml">
+                    <button type="button">Voltar</button>
+                </a>
             </h:form>
         </f:view>
     </h:body>

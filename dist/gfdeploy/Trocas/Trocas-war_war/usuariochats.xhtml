@@ -12,12 +12,17 @@
             <h:form>
                 <h1><h:outputText value="Meus Chats"/></h1>  
                 <p:dataTable id="tabelaChatsUsuario" var="chat" value="#{usuarioMBean.chatsUsuario}">
-                   <p:column headerText="Item">
+                   <p:column headerText="Itens Interessados">
                        <h:outputText id ="nome" value="#{chat.idItem.titulo}" /> 
+                        </p:column>
+                     <p:column>
                       <p:commandButton process="@this tabelaChatsUsuario"  action="#{usuarioMBean.setChatSelecionado(chat)}" value="visualizar">                     
                       </p:commandButton>
                        </p:column>
                 </p:dataTable>
+                <a href="faces/perfil.xhtml">
+                    <button type="button">Voltar</button>
+                </a>
             </h:form>
  
          </f:view>

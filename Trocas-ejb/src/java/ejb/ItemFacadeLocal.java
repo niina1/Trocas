@@ -33,4 +33,6 @@ public interface ItemFacadeLocal {
     
     List<Item> itensUsuario(Usuario usuario);
     
+    List<Item> getByDescricao(String descricao);
+    
 }

@@ -11,16 +11,22 @@
         <f:view>
             <h:form>
                 <h1><h:outputText value="Meu Item"/></h1>  
-                <p><h:outputText id ="titulo" value="#{usuarioMBean.itemSelecionado.titulo}" /> </p>
+                <h2><p><h:outputText id ="titulo" value="#{usuarioMBean.itemSelecionado.titulo}" /> </p></h2>
                 <p><h:outputText id ="descricao" value="#{usuarioMBean.itemSelecionado.descricao}" /></p> 
                             
                 <p:dataTable id="tabelaChatsItem" var="chat" value="#{usuarioMBean.chatItem}">
-                   <p:column headerText="Usuario">
+                   <p:column headerText="Chat com o Usuario">
                       <h:outputText id ="nome" value="#{chat.idUsuario.nomeUsuario}" /> 
-                      <p:commandButton process="@this tabelaChatsItem"  action="#{usuarioMBean.setChatSelecionado(chat)}" value="visualizar">                     
-                      </p:commandButton>
+                   
                        </p:column>
+                     <p:column>
+                       <p:commandButton process="@this tabelaChatsItem"  action="#{usuarioMBean.setChatSelecionado(chat)}" value="visualizar">                     
+                      </p:commandButton>
+                     </p:column>
                 </p:dataTable>
+                <a href="faces/perfil.xhtml">
+                    <button type="button">Voltar</button>
+                </a>
             </h:form>
  
          </f:view>

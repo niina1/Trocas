@@ -26,8 +26,10 @@ public class ItemMBean {
     private ItemFacadeLocal itemFacade;
     public Item item;
     public Usuario usuarioLogado;
+    Boolean pesquisar = false;
     String titulo;
     String descricao;
+    String filtro;
     @Inject
     UsuarioMBean usuarioMBean;
 
@@ -36,6 +38,14 @@ public class ItemMBean {
         HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
         usuarioLogado = (Usuario) session.getAttribute("user");
         return usuarioLogado;
+    }
+
+    public String getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(String filtro) {
+        this.filtro = filtro;
     }
 
     public void setUsuario(Usuario usuario) {
@@ -49,14 +59,29 @@ public class ItemMBean {
     }
     
   public List<Item> getListaItem(){
+      if(pesquisar){
+         pesquisar = false;
+        return getByDescricao();   
+      }
+      else{
         return itemFacade.findAll();
-        
+      }
     }
  
   
     public List<Item> setListaItem(List<Item> itens){
         return itens;
         
+    }
+    public void Pesquisar(){
+        pesquisar = true;
+    }
+      public void CancelarPesquisar(){
+        pesquisar = false;
+    }
+    
+    public List<Item> getByDescricao(){
+        return itemFacade.getByDescricao(filtro);
     }
   
   public String criarItem(){

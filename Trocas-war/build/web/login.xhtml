@@ -23,6 +23,9 @@
                            <h:inputText id ="senha" value="#{usuarioMBean.senha}" /> 
                            <p:commandButton value="Login" icon="ui-icon-star" action="#{usuarioMBean.realizarLogin()}" ajax="false">
                            </p:commandButton>
+                           <p:commandButton value="Cadastre-se" icon="ui-icon-star" action="#{usuarioMBean.Cadastro()}" ajax="false">
+                           </p:commandButton>
+                           <p><h:messages/></p>
                         </h:panelGrid>  
                                  
                     </p:panel>              

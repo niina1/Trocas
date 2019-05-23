@@ -17,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import ejb.Usuario;
 import java.io.IOException;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -105,6 +106,21 @@ public class UsuarioMBean {
     }
     
     public String criarUsuario(){
+         if(emailExiste(email)){
+             FacesMessage fm = new FacesMessage("E-mail já cadastrado");
+             FacesContext.getCurrentInstance().addMessage("msgCd", fm);
+            return null;
+        }
+         if(email == ""){
+             FacesMessage fm = new FacesMessage("E-mail Obrigatorio");
+             FacesContext.getCurrentInstance().addMessage("msgEm", fm);
+            return null;
+         }
+         if(senha == ""){
+             FacesMessage fm = new FacesMessage("Senha Obrigatoria");
+             FacesContext.getCurrentInstance().addMessage("msgSn", fm);
+            return null;
+         }
         usuario = usuarioFacade.newUsuario();
         usuario.setEmail(email); 
         usuario.setCidade(cidade);
@@ -117,23 +133,43 @@ public class UsuarioMBean {
         nomeUsuario = "";
         telefone = "";
         senha = "";
-      return "indexantigo";
+         FacesContext context = FacesContext.getCurrentInstance();
+         HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+         session.setAttribute("user", this.usuario);
+         ExternalContext eContext = FacesContext.getCurrentInstance().getExternalContext();  
+         return "perfil";
+    }
+    
+     private boolean emailExiste(String email) {
+        for (Usuario user : this.getListaUsuario()) {
+          if (user.getEmail().equals(email)) {
+              
+                  return true;
+              
+          }
+        }           
+        
+        return false;
     }
     
      public String realizarLogin() throws IOException {
-        for (Usuario user : this.getListaUsuario()) {
-            if (user.getEmail().equals(email)) {
-                if (user.getSenha().equals(this.getSenha())) {
-                    FacesContext context = FacesContext.getCurrentInstance();
-                    HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
-                    this.usuario = user;
-                    session.setAttribute("user", this.usuario);
-                    ExternalContext eContext = FacesContext.getCurrentInstance().getExternalContext();  
-                    return "perfil";
-                    }
+         if(email != ""&& senha != ""){
+            for (Usuario user : this.getListaUsuario()) {
+                if (user.getEmail().equals(email)) {
+                    if (user.getSenha().equals(senha)) {
+                        FacesContext context = FacesContext.getCurrentInstance();
+                        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+                        this.usuario = user;
+                        session.setAttribute("user", this.usuario);
+                        ExternalContext eContext = FacesContext.getCurrentInstance().getExternalContext();  
+                        return "perfil";
+                        }
+                }
             }
-        }
-        return "index";
+         }
+        FacesMessage fm = new FacesMessage("Login ou senha inválidos");
+        FacesContext.getCurrentInstance().addMessage("msgLg", fm);
+        return null;
     }
                 
      
@@ -341,6 +377,15 @@ public class UsuarioMBean {
        public String visualizarChats(){
            
            return "usuariochats";
+       }
+       
+       public String Sair(){
+           FacesContext context = FacesContext.getCurrentInstance();
+          HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+          session.setAttribute("chat", null);
+          session.setAttribute("user", null);
+          session.setAttribute("item", null);
+          return "index";
        }
     
 }

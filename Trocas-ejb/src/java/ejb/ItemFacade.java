@@ -47,5 +47,15 @@ public class ItemFacade extends AbstractFacade<Item> implements ItemFacadeLocal 
         }
         return lista;
     }
+
+    @Override
+    public List<Item> getByDescricao(String descricao) {
+        ArrayList<Item> itens = new ArrayList<Item>();
+        for(Item item: super.findAll()){
+            if(item.getDescricao() != null&& item.getDescricao().toLowerCase().contains(descricao.toLowerCase()))
+                itens.add(item);
+        }    
+        return itens;
+    }
     
 }

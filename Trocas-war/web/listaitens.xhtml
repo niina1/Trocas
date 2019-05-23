@@ -20,7 +20,7 @@
                 </p:commandButton>  
             </h:form>
 
-                      <h2><h:outputText value="Lista de Itens"/></h2>
+                      <h2><h:outputText value="Lista dos Meus Itens"/></h2>
                       <p:dataTable id= "tabelaItens" var="item" value="#{usuarioMBean.listaItemUsuario}">
                    
                    <p:column headerText="titulo">
@@ -33,6 +33,9 @@
                     </p:column>
                     
                 </p:dataTable>
+                        <a href="faces/perfil.xhtml">
+                    <button type="button">Voltar</button>
+                </a>
  
          </f:view>
     </h:body>

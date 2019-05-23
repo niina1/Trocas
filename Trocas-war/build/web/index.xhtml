@@ -5,7 +5,15 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Sistema de Trocas</title>
+     <style type="text/css">
+     .centeredMenuBar.ui-menubar {
+    text-align: center;
+    }
+
+    .centeredMenuBar .ui-menu-list {
+    display: inline-block;
+    }
+    </style>
     </h:head>
     <h:body>
        <h:panelGrid style="width:100%; height:100%;" columns="1">
@@ -22,6 +30,37 @@
                     </h:panelGrid>
          
                 </p:panel>
+                <br></br><br></br>
+                 <p:outputPanel>
+                                
+                                <h:outputText value="Procure o item desejado:  " />
+                                <h:inputText id="filtro" value="#{itemMBean.filtro}" onkeyup="PF('item').filter()" style="width:150px" />
+                                <p:commandButton value="Pesquisar Item" icon="ui-icon-star" action="#{itemMBean.Pesquisar()}" ajax="false"/>  
+                                <p:commandButton value="Cancelar" icon="ui-icon-star" action="#{itemMBean.CancelarPesquisar()}" ajax="false"/>  
+              
+              
+                 </p:outputPanel>
+                <br></br><br></br>
+                
+                 <p:dataTable id = "tabelaItem" var="item" value="#{itemMBean.listaItem}">
+                          <f:facet name="header">
+                              Lista de Todos os Itens
+                            </f:facet>
+                            <p:outputPanel>
+                                <h:outputText value="Procure o item desejado:  " />
+                                <p:inputText id="globalFilter" onkeyup="PF('item').filter()" style="width:150px" placeholder="Insira a palavra"/>
+                            </p:outputPanel>
+                        
+                   
+                        <p:column headerText="Titulo">
+                            <h:outputText id ="titulo" value="#{item.titulo}" /> 
+                    </p:column>
+                        <p:column headerText="Descrição">
+                        <h:outputText id ="descricao" value="#{item.descricao}" /> 
+                        </p:column>
+      
+                    </p:dataTable>
+                     
                          
             </h:form>
         </h:panelGrid>
