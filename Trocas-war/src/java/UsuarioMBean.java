@@ -124,15 +124,13 @@ public class UsuarioMBean {
         for (Usuario user : this.getListaUsuario()) {
             if (user.getEmail().equals(email)) {
                 if (user.getSenha().equals(this.getSenha())) {
-{
-            FacesContext context = FacesContext.getCurrentInstance();
-            HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
-            this.usuario = user;
-            session.setAttribute("user", this.usuario);
-            ExternalContext eContext = FacesContext.getCurrentInstance().getExternalContext();  
-            return "perfil";
-        }
-                }
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+                    this.usuario = user;
+                    session.setAttribute("user", this.usuario);
+                    ExternalContext eContext = FacesContext.getCurrentInstance().getExternalContext();  
+                    return "perfil";
+                    }
             }
         }
         return "index";
@@ -306,11 +304,11 @@ public class UsuarioMBean {
     }
      
     public String setChatSelecionado(Chat chat){
-        FacesContext context = FacesContext.getCurrentInstance();
+          FacesContext context = FacesContext.getCurrentInstance();
           HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
           session.setAttribute("chat", chat);
           this.chatSelecionado = (Chat) session.getAttribute("chat"); 
-        return "mensagemchat";
+          return "mensagemchat";
   }
        public Chat getChatSelecionado(){
       FacesContext context = FacesContext.getCurrentInstance();
@@ -324,9 +322,10 @@ public class UsuarioMBean {
         getItemSelecionado();
         getChatSelecionado();
         Mensagem msg = mensagemFacade.newMensagem();
+        mensagem = usuario.getNomeUsuario() + ": " + mensagem;
         msg.setTexto(mensagem);
         msg.setIdChat(chatSelecionado);   
-        this.chatFacade.create(chatSelecionado);
+        this.chatFacade.edit(chatSelecionado);
         this.mensagemFacade.create(msg);
             
    }

@@ -14,10 +14,10 @@
                 <p><h:outputText id ="titulo" value="#{usuarioMBean.itemSelecionado.titulo}" /> </p>
                 <p><h:outputText id ="descricao" value="#{usuarioMBean.itemSelecionado.descricao}" /></p> 
                             
-                <p:dataTable id="tabelaChats" var="chat" value="#{usuarioMBean.chatItem}">
+                <p:dataTable id="tabelaChatsItem" var="chat" value="#{usuarioMBean.chatItem}">
                    <p:column headerText="Usuario">
                       <h:outputText id ="nome" value="#{chat.idUsuario.nomeUsuario}" /> 
-                      <p:commandButton process="@this tabelaChats"  action="#{usuarioMBean.setChatSelecionado(chat)}" value="visualizar">                     
+                      <p:commandButton process="@this tabelaChatsItem"  action="#{usuarioMBean.setChatSelecionado(chat)}" value="visualizar">                     
                       </p:commandButton>
                        </p:column>
                 </p:dataTable>
