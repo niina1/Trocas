@@ -5,6 +5,7 @@
  */
 package ejb;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -58,7 +59,7 @@ public class ChatFacade extends AbstractFacade<Chat> implements ChatFacadeLocal 
     @Override
     public List<Chat> getChatsItem(Item item) {
         List<Chat> chats = super.findAll();
-        List<Chat> chatsItem = null;
+        ArrayList<Chat> chatsItem = new ArrayList<Chat>();
         if(chats.size() > 0){
             for(Chat chat : chats){
                 if(chat.getIdItem().equals(item))

@@ -258,21 +258,16 @@ public class UsuarioMBean {
    }
   
   public String setItemSelecionado(Item item){
+      getUsuario();
       FacesContext context = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
         session.setAttribute("item", item);
         this.itemSelecionado = (Item) session.getAttribute("item"); 
-        
+        if(itemSelecionado.getIdUsuario().equals(usuario))
+            return "meuitem";
         return "visualizaritem";
   }
   
-   public String setMeuItemSelecionado(Item item){
-      FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
-        session.setAttribute("item", item);
-        this.itemSelecionado = (Item) session.getAttribute("item"); 
-        return "visualizarMeuitem";
-  }
   
   public Item getItemSelecionado(){
       FacesContext context = FacesContext.getCurrentInstance();
@@ -310,12 +305,12 @@ public class UsuarioMBean {
          return mensagemFacade.getMenssagensChat(chatSelecionado);
     }
      
-       public String setChatSelecionado(Chat chat){
-      FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
-        session.setAttribute("chat", chat);
-        this.chatSelecionado = (Chat) session.getAttribute("chat"); 
-        return "visualizChat";
+    public String setChatSelecionado(Chat chat){
+        FacesContext context = FacesContext.getCurrentInstance();
+          HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+          session.setAttribute("chat", chat);
+          this.chatSelecionado = (Chat) session.getAttribute("chat"); 
+        return "mensagemchat";
   }
        public Chat getChatSelecionado(){
       FacesContext context = FacesContext.getCurrentInstance();
