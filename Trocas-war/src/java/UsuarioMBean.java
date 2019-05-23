@@ -385,7 +385,14 @@ public class UsuarioMBean {
           session.setAttribute("chat", null);
           session.setAttribute("user", null);
           session.setAttribute("item", null);
+          session.invalidate();
           return "index";
        }
     
+       public String ValidarUsuario(){
+           getUsuario();
+           if(usuario == null)
+               return "index";
+           return null;                
+       }
 }

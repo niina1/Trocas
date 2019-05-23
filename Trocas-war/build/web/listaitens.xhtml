@@ -5,12 +5,12 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Sistema de Trocas</title>
     </h:head>
     <h:body>
         <f:view>
             <h:form>
-                <h1><h:outputText value="Login"/></h1>  
+                <h1><h:outputText value="Meus Itens"/></h1>  
                 <p>Titulo</p>
                 <h:inputText id ="titulo" value="#{titulo}" size="30" maxlength="30" /> 
                  <p>Descricao</p>
@@ -28,6 +28,8 @@
                    </p:column>
                     <p:column headerText="descricao">
                       <h:outputText id ="descricao1" value="#{item.descricao}" /> 
+                      </p:column>
+                    <p:column>
                       <p:commandButton process="@this tabelaItens"  action="#{usuarioMBean.setItemSelecionado(item)}" value="visualizar">                     
                       </p:commandButton>
                     </p:column>

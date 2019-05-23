@@ -3,15 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Carol/Documents/NetBeansProjects/Trocas/Trocas-ejb/src/java/ejb/Mensagem.java</file>
             <file>file:/C:/Users/Carol/Documents/NetBeansProjects/Trocas/Trocas-ejb/src/java/ejb/MensagemFacade.java</file>
-            <file>file:/C:/Users/Carol/Documents/NetBeansProjects/Trocas/Trocas-ejb/src/java/ejb/ChatFacadeLocal.java</file>
+            <file>file:/C:/Users/Carol/Documents/NetBeansProjects/Trocas/Trocas-ejb/src/java/ejb/ItemFacade.java</file>
             <file>file:/C:/Users/Carol/Documents/NetBeansProjects/Trocas/Trocas-ejb/src/java/ejb/UsuarioFacadeLocal.java</file>
+            <file>file:/C:/Users/Carol/Documents/NetBeansProjects/Trocas/Trocas-ejb/src/java/ejb/Item.java</file>
             <file>file:/C:/Users/Carol/Documents/NetBeansProjects/Trocas/Trocas-ejb/src/java/ejb/UsuarioFacade.java</file>
             <file>file:/C:/Users/Carol/Documents/NetBeansProjects/Trocas/Trocas-ejb/src/java/ejb/MensagemFacadeLocal.java</file>
+            <file>file:/C:/Users/Carol/Documents/NetBeansProjects/Trocas/Trocas-ejb/src/java/ejb/AbstractFacade.java</file>
+            <file>file:/C:/Users/Carol/Documents/NetBeansProjects/Trocas/Trocas-ejb/src/java/ejb/ItemFacadeLocal.java</file>
+            <file>file:/C:/Users/Carol/Documents/NetBeansProjects/Trocas/Trocas-ejb/src/java/ejb/Usuario.java</file>
+            <file>file:/C:/Users/Carol/Documents/NetBeansProjects/Trocas/Trocas-ejb/src/java/ejb/Mensagem.java</file>
+            <file>file:/C:/Users/Carol/Documents/NetBeansProjects/Trocas/Trocas-ejb/src/java/ejb/ChatFacadeLocal.java</file>
             <file>file:/C:/Users/Carol/Documents/NetBeansProjects/Trocas/Trocas-ejb/src/java/ejb/ChatFacade.java</file>
             <file>file:/C:/Users/Carol/Documents/NetBeansProjects/Trocas/Trocas-ejb/src/java/ejb/Chat.java</file>
-            <file>file:/C:/Users/Carol/Documents/NetBeansProjects/Trocas/Trocas-ejb/src/java/ejb/Usuario.java</file>
         </group>
     </open-files>
 </project-private>

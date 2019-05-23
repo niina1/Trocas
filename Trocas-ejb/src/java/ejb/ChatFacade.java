@@ -72,13 +72,9 @@ public class ChatFacade extends AbstractFacade<Chat> implements ChatFacadeLocal 
     @Override
     public Chat newChat() {
         List<Chat> chats = super.findAll();
-        int tamanho;
-        if( chats.get(chats.size() - 1).getIdChat() != null){
-            tamanho = chats.get(chats.size() - 1).getIdChat() + 1;
-        }
-        else
-           tamanho = 1;
-               
+        int tamanho = 1;
+        if(chats.size() >= 1)
+             tamanho = chats.get(chats.size() - 1).getIdChat() + 1;
         Chat chat = new Chat(tamanho );
         return  chat;    
     }

@@ -31,9 +31,10 @@ public class ItemFacade extends AbstractFacade<Item> implements ItemFacadeLocal 
     
     @Override
      public Item newItem() {
+        int tamanho = 1;
         List<Item> itens = super.findAll();
-        int tamanho;
-        tamanho = itens.get(itens.size() - 1).getIdItem() + 1;
+        if(itens.size() >= 1)
+             tamanho = itens.get(itens.size() - 1).getIdItem() + 1;
         Item item = new Item(tamanho );
         return  item;
     }

@@ -34,8 +34,9 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
     @Override
     public Usuario newUsuario() {
         List<Usuario> usuarios = super.findAll();
-        int tamanho;
-        tamanho = usuarios.get(usuarios.size() - 1).getIdUsuario() + 1;
+        int tamanho = 1;
+        if(usuarios.size() >= 1)
+            tamanho = usuarios.get(usuarios.size() - 1).getIdUsuario() + 1;
         usuario = new Usuario(tamanho );
         return  usuario;
     }
