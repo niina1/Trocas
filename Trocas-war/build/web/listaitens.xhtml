@@ -21,7 +21,7 @@
             </h:form>
 
                       <h2><h:outputText value="Lista de Itens"/></h2>
-                      <p:dataTable var="item1" value="#{usuarioMBean.listaItemUsuario}">
+                      <p:dataTable id= "tabelaItens" var="item1" value="#{usuarioMBean.listaItemUsuario}">
                    
                    <p:column headerText="titulo">
                       <h:outputText id ="titulo1" value="#{item1.titulo}" /> 
@@ -29,6 +29,8 @@
                     <p:column headerText="descricao">
                       <h:outputText id ="descricao1" value="#{item1.descricao}" /> 
                     </p:column>
+                      <p:commandButton process="@this tabelaItens"  action="#{usuarioMBean.setMeuItemSelecionado(item)}" value="visualizar">                     
+                      </p:commandButton>
                 </p:dataTable>
  
          </f:view>
