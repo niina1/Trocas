@@ -228,7 +228,7 @@ public class UsuarioMBean {
       usuarioFacade.enviarEmail(usuario, itemSelecionado, msg);
   }
   
-   public void enviarMensagem(){
+   public boolean enviarMensagem(){
       getUsuario();
       getItemSelecionado();
       this.mensagem = usuario.getNomeUsuario() + ": " + mensagem;
@@ -240,6 +240,7 @@ public class UsuarioMBean {
                         msg.setIdChat(chat);
                         mensagemFacade.create(msg);
                         chatFacade.edit(chat);
+                        return true;
                     }
                 }
       }
@@ -252,6 +253,7 @@ public class UsuarioMBean {
                 msg.setIdChat(chat);   
                 this.chatFacade.create(chat);
                 this.mensagemFacade.create(msg);
+                return true;
             
    }
   
@@ -311,9 +313,10 @@ public class UsuarioMBean {
           return "mensagemchat";
   }
        public Chat getChatSelecionado(){
-      FacesContext context = FacesContext.getCurrentInstance();
+        FacesContext context = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
         this.chatSelecionado = (Chat) session.getAttribute("chat"); 
+        setItemSelecionado(chatSelecionado.getIdItem());
         return this.chatSelecionado;
   }
        
@@ -329,5 +332,15 @@ public class UsuarioMBean {
         this.mensagemFacade.create(msg);
             
    }
+       
+       public List<Chat> getChatsUsuario(){
+           getUsuario();
+           return chatFacade.getChatsUsuario(usuario);
+       }
+       
+       public String visualizarChats(){
+           
+           return "usuariochats";
+       }
     
 }

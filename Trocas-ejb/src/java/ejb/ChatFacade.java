@@ -32,7 +32,7 @@ public class ChatFacade extends AbstractFacade<Chat> implements ChatFacadeLocal 
     @Override
     public List<Chat> getChatsUsuario(Usuario usuario) {
         List<Chat> chats = super.findAll();
-        List<Chat> chatsItem = null;
+        ArrayList<Chat> chatsItem = new ArrayList();
         if(chats.size() > 0){
             for(Chat chat : chats){
                 if(chat.getIdUsuario().equals(usuario))
