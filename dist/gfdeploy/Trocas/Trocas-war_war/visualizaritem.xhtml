@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Sistema de Trocas</title>
     </h:head>
     <h:body>
         <f:view>
@@ -13,7 +13,9 @@
                 <h1><h:outputText value="Item Selecinado:"/></h1>  
                 <h2><p><h:outputText id ="titulo" value="#{usuarioMBean.itemSelecionado.titulo}" /> </p></h2>
                 <p><h:outputText id ="descricao" value="#{usuarioMBean.itemSelecionado.descricao}" /></p> 
-                <p><h:inputText id ="mensagem" value="#{usuarioMBean.mensagem}" /> </p>       
+               
+                <h3>Deseja enviar uma mensagem?</h3>
+                <p><h:inputTextarea id ="mensagem" value="#{usuarioMBean.mensagem}" rows="10" cols="40"/> </p> 
                 <p:commandButton value="Enviar Msg" icon="ui-icon-star" action="#{usuarioMBean.enviarMensagem()}" ajax="false">  
                 </p:commandButton>  
                 <br></br>
@@ -26,7 +28,6 @@
               <a href="faces/perfil.xhtml">
                     <button type="button">Voltar</button>
                 </a>
- 
          </f:view>
     </h:body>
     

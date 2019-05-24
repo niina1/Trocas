@@ -58,6 +58,8 @@ public class UsuarioMBean {
         /**
      * Creates a new instance of UsuarioMBean
      */
+    
+    
     public UsuarioMBean() {
     }
 
@@ -105,39 +107,45 @@ public class UsuarioMBean {
         this.uf = uf;
     }
     
+    //cadastra o usuario
     public String criarUsuario(){
-         if(emailExiste(email)){
-             FacesMessage fm = new FacesMessage("E-mail já cadastrado");
+        Boolean invalido = false;
+         if(emailExiste(email)){  //verifica se email existe
+             FacesMessage fm = new FacesMessage("E-mail já cadastrado"); //envia msg para tela
              FacesContext.getCurrentInstance().addMessage("msgCd", fm);
-            return null;
+            invalido = true;
         }
-         if(email == ""){
+         if(this.email.isEmpty()){ 
              FacesMessage fm = new FacesMessage("E-mail Obrigatorio");
              FacesContext.getCurrentInstance().addMessage("msgEm", fm);
-            return null;
+            invalido = true;
          }
-         if(senha == ""){
+         if(this.senha.isEmpty()){
              FacesMessage fm = new FacesMessage("Senha Obrigatoria");
              FacesContext.getCurrentInstance().addMessage("msgSn", fm);
-            return null;
+           invalido = true;
          }
-        usuario = usuarioFacade.newUsuario();
-        usuario.setEmail(email); 
-        usuario.setCidade(cidade);
-        usuario.setNomeUsuario(nomeUsuario);
-        usuario.setTelefone(telefone);
-        usuario.setSenha(senha);
-        usuarioFacade.create(usuario);
-        email = "";
-        cidade = "";
-        nomeUsuario = "";
-        telefone = "";
-        senha = "";
-         FacesContext context = FacesContext.getCurrentInstance();
-         HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
-         session.setAttribute("user", this.usuario);
-         ExternalContext eContext = FacesContext.getCurrentInstance().getExternalContext();  
-         return "perfil";
+         if(invalido)
+             return null;
+         else{      
+            usuario = usuarioFacade.newUsuario();
+            usuario.setEmail(email); 
+            usuario.setCidade(cidade);
+            usuario.setNomeUsuario(nomeUsuario);
+            usuario.setTelefone(telefone);
+            usuario.setSenha(senha);
+            usuarioFacade.create(usuario);
+            email = "";
+            cidade = "";
+            nomeUsuario = "";
+            telefone = "";
+            senha = "";
+             FacesContext context = FacesContext.getCurrentInstance();
+             HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+             session.setAttribute("user", this.usuario);
+             ExternalContext eContext = FacesContext.getCurrentInstance().getExternalContext();  
+             return "perfil";
+     }
     }
     
      private boolean emailExiste(String email) {
@@ -178,9 +186,25 @@ public class UsuarioMBean {
      }
      
       public String Cadastro(){
+          email = "";
+          senha = "";
          return "cadastro";
      }
 
+      public String goListarItens(){
+          if(ValidarUsuario() == "index")
+              return "index";
+          return "listaitens";
+          
+      }
+      
+        public String goChats(){
+          if(ValidarUsuario() == "index")
+              return "index";
+          return "usuariochats";
+          
+      }
+      
     public Usuario getUsuario() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
@@ -241,19 +265,26 @@ public class UsuarioMBean {
     
         
   public List<Item> getListaItemUsuario(){
+      
       getUsuario();
       return itemFacade.itensUsuario(this.getUsuario());
     }
   
-  public void criarItem(){
-        item = itemFacade.newItem();
-        item.setTitulo(titulo);
-        item.setDescricao(descricao);
-        getUsuario();
-        item.setIdUsuario(usuario);
-        itemFacade.create(item);
-        titulo = "";
-        descricao = "";
+  public String criarItem(){
+      if(ValidarUsuario() == "index"){
+           return "index";
+      }
+      else{
+            item = itemFacade.newItem();
+            item.setTitulo(titulo);
+            item.setDescricao(descricao);
+            getUsuario();
+            item.setIdUsuario(usuario);
+            itemFacade.create(item);
+            titulo = "";
+            descricao = "";
+            return null;
+      }
     }
   
   public void enviarEmail(){
@@ -276,6 +307,7 @@ public class UsuarioMBean {
                         msg.setIdChat(chat);
                         mensagemFacade.create(msg);
                         chatFacade.edit(chat);
+                        mensagem = "";
                         return true;
                     }
                 }
@@ -289,19 +321,23 @@ public class UsuarioMBean {
                 msg.setIdChat(chat);   
                 this.chatFacade.create(chat);
                 this.mensagemFacade.create(msg);
+                mensagem = "";
                 return true;
             
    }
   
   public String setItemSelecionado(Item item){
-      getUsuario();
-      FacesContext context = FacesContext.getCurrentInstance();
+      if(ValidarUsuario() == null){
+        getUsuario();
+        FacesContext context = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
         session.setAttribute("item", item);
         this.itemSelecionado = (Item) session.getAttribute("item"); 
         if(itemSelecionado.getIdUsuario().equals(usuario))
             return "meuitem";
         return "visualizaritem";
+      }
+      return "index";
   }
   
   
@@ -342,11 +378,15 @@ public class UsuarioMBean {
     }
      
     public String setChatSelecionado(Chat chat){
+        if(ValidarUsuario() ==null){
           FacesContext context = FacesContext.getCurrentInstance();
           HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
           session.setAttribute("chat", chat);
           this.chatSelecionado = (Chat) session.getAttribute("chat"); 
           return "mensagemchat";
+        }
+        return "index";
+        
   }
        public Chat getChatSelecionado(){
         FacesContext context = FacesContext.getCurrentInstance();
@@ -375,8 +415,9 @@ public class UsuarioMBean {
        }
        
        public String visualizarChats(){
-           
-           return "usuariochats";
+           if(ValidarUsuario() == null)
+             return "usuariochats";
+           return "index";
        }
        
        public String Sair(){
@@ -393,6 +434,6 @@ public class UsuarioMBean {
            getUsuario();
            if(usuario == null)
                return "index";
-           return null;                
+           return null;              
        }
 }

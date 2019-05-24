@@ -4,21 +4,39 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
+      <h:head>
         <title>Sistema de Trocas</title>
     </h:head>
+
+    
     <h:body>
+        <style type="text/css">
+     .centeredMenuBar.ui-menubar {
+    text-align: center;
+    }
+
+    .centeredMenuBar .ui-menu-list {
+    display: inline-block;
+    }
+    </style>
+   
+        <h:form>
         <f:view>
-            <h:form>
-                <h1><h:outputText value="Meus Itens"/></h1>  
-                <p>Titulo</p>
-                <h:inputText id ="titulo" value="#{titulo}" size="30" maxlength="30" /> 
-                 <p>Descricao</p>
-                <h:inputText id ="descricao" value="#{descricao}" /> 
-                
-                <p:commandButton value="Cadastrar Item" icon="ui-icon-star" action="#{usuarioMBean.criarItem()}" ajax="false">  
-                </p:commandButton>  
-            </h:form>
+            <p:menubar styleClass="centeredMenuBar">
+ 
+                    
+                <f:facet name="options" >
+                    
+                    <h1><h:outputText style="align-content: center; align-self: center; justify-content: center" value="Cadastrar um novo item"/></h1>
+                    <p:inputText id ="titulo" value="#{usuarioMBean.titulo}" size="30" maxlength="30" 
+                                 style="margin:1px 10px 1px 1px;" placeholder="Titulo: "/>
+                    <p:inputText id ="descricao" value="#{usuarioMBean.descricao}" 
+                                 style="margin:1px 10px 1px 1px;" placeholder="Descrição: "/>
+                     <p:commandButton value="Cadastrar Item" icon="ui-icon-star" action="#{usuarioMBean.criarItem()}" ajax="false"/>  
+                   
+                </f:facet>
+                   
+                </p:menubar>
 
                       <h2><h:outputText value="Lista dos Meus Itens"/></h2>
                       <p:dataTable id= "tabelaItens" var="item" value="#{usuarioMBean.listaItemUsuario}">
@@ -40,6 +58,7 @@
                 </a>
  
          </f:view>
+        </h:form>
     </h:body>
     
 </html>

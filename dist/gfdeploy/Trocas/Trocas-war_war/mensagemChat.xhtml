@@ -19,8 +19,8 @@
                        <h:outputText id ="nome1" value="#{msg.texto}" />              
                        </p:column>
                 </p:dataTable>
-                <p><h:inputText id ="mensagem1" value="#{usuarioMBean.mensagem}" /> </p>       
-                <p:commandButton value="Enviar Msg" icon="ui-icon-star" action="#{usuarioMBean.enviarMensagemChat()}" ajax="false">  
+                <p><h:inputTextarea id ="mensagem1" value="#{usuarioMBean.mensagem}" rows="10" cols="40"/> </p> 
+             <p:commandButton value="Enviar Msg" icon="ui-icon-star" action="#{usuarioMBean.enviarMensagemChat()}" ajax="false">  
                 </p:commandButton>                  
             </h:form>
               <a href="faces/perfil.xhtml">
